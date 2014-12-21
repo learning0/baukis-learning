@@ -35,7 +35,21 @@ class FormPresenter
   def data_field_block(name, label_text, options = {})
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)
+      if options[:class].kind_of?(String)
+        classes = options[:class].strip.split + [ 'datepicker' ]
+        options[:class] = classes.unique.join(' ')
+      else
+        options[:class] = 'datepicker'
+      end
       m << text_field(name, options)
+      m << error_message_for(name)
+    end
+  end
+
+  def drop_down_list_block(name, label_text, choices, options = {})
+    markup(:div, class: 'input-block') do |m|
+      m << decorated_label(name, label_text, options)
+      m << form_builder.select(name, choices, { include_blank: true }, options)
       m << error_message_for(name)
     end
   end
