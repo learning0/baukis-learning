@@ -11,7 +11,7 @@ class Phone < ActiveRecord::Base
   
   before_create do
     self.customer = address.customer if address
-    self.before_four_digits = self.number[-4, 4]
+    self.last_four_digits = self.number[-4, 4]
   end
   
   validates :number, presence: true,
