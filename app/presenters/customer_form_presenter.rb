@@ -9,7 +9,7 @@ class CustomerFormPresenter < UserFormPresenter
         options[:class] = 'birthday-picker'
       end
       m << text_field(name, options)
-      m << error_message_for(name)
+      m << error_messages_for(name)
     end
   end
   

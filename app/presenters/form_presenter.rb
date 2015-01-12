@@ -20,7 +20,22 @@ class FormPresenter
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)
       m << text_field(name, options)
-      m << error_message_for(name)
+      m << error_messages_for(name)
+      if options[:maxlength]
+        m.span "(#{options[:maxlength]}文字以内)", class: 'instruction'
+      end
+    end
+  end
+  
+  def number_field_block(name, label_text, options = {})
+    markup(:div) do |m|
+      m << decorated_label(name, label_text, options)
+      m << form_builder.number_field(name, options)
+      if options[:max]
+        max = view_context.number_with_delimiter(options[:max].to_i)
+        m.span "(最大値:#{options[:max]})", class: 'instruction'
+      end
+      m << error_messages_for(name)
     end
   end
   
@@ -28,7 +43,7 @@ class FormPresenter
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)
       m << password_field(name, options)
-      m << error_message_for(name)
+      m << error_messages_for(name)
     end
   end
   
@@ -42,7 +57,7 @@ class FormPresenter
         options[:class] = 'datepicker'
       end
       m << text_field(name, options)
-      m << error_message_for(name)
+      m << error_messages_for(name)
     end
   end
 
@@ -50,11 +65,21 @@ class FormPresenter
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)
       m << form_builder.select(name, choices, { include_blank: true }, options)
-      m << error_message_for(name)
+      m << error_messages_for(name)
     end
   end
 
-  def error_message_for(name)
+  def error_messages_for(name)
+    markup do |m|
+      object.errors.full_messages_for(name).each do |message|
+        m.div(class: 'error-message') do |m|
+          m.text message
+        end
+      end
+    end
+  end
+
+  def full_messages_for(name)
     markup do |m|
       object.errors.full_messages_for(name).each do |message|
         m.div(class: 'error-message') do |m|
