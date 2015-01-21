@@ -14,12 +14,8 @@
       <td class="numeric"><%= p.min_number_of_participants %></td></tr>
     <tr><th>最大参加者</th>
       <td class="numeric"><%= p.max_number_of_participants %></td></tr>
-    <tr><th>申し込み件数</th>
-      <td class="numeric"><%= p.number_of_applicants %></td></tr>
-    <tr><th>登録職員</th>
-      <td><%= p.registrant %></td></tr>
   </table>
   <div class="description"><%= @program.description %></div>
   
-  <%= render 'entries_form' if @program.number_of_applicants %>
+  <div><%= p.apply_or_cancel_button %></div>
 </div>

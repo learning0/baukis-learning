@@ -10,8 +10,8 @@ class Customer::Base < ApplicationController
     end
   end
   
-  helper_method :current_customer
-  
+  # helper_method :current_customer
+
   def authorize
     unless current_customer
       flash.alert = 'ログインしてください。'
