@@ -1,14 +1,16 @@
 class Customer::Base < ApplicationController
   before_action :authorize
   
+  include ApplicationHelper
+  
   private
   
-  def current_customer
-    if customer_id = cookies.signed[:customer_id] || session[:customer_id]
-      @current_customer ||=
-        Customer.find_by(id: customer_id)
-    end
-  end
+  # def current_customer
+  #   if customer_id = cookies.signed[:customer_id] || session[:customer_id]
+  #     @current_customer ||=
+  #       Customer.find_by(id: customer_id)
+  #   end
+  # end
   
   # helper_method :current_customer
 

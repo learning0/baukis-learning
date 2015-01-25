@@ -16,21 +16,23 @@ describe Staff::AccountsController do
     
     example 'email属性を変更する' do
       params_hash.merge!(email: 'text@example.com')
-      patch :update, id: staff_member.id, staff_member: params_hash
+      patch :update, id: staff_member.id, staff_member: params_hash,
+        commit: '更新'
       staff_member.reload
       expect(staff_member.email).to eq('text@example.com')
     end
     
     example '例外ActiveController::ParameterMissingが発生' do
       bypass_rescue
-      expect { patch :update, id: staff_member.id }.
+      expect { patch :update, id: staff_member.id, commit: '更新' }.
       to raise_error(ActionController::ParameterMissing)
     end
     
     example 'end_dateの値は書き換え不可' do
       params_hash.merge!(end_date: Date.tomorrow)
       expect {
-        patch :update, id: staff_member.id, staff_member: params_hash
+        patch :update, id: staff_member.id, staff_member: params_hash,
+          commit: '更新'
       }.not_to change { staff_member.end_date }
     end
   end

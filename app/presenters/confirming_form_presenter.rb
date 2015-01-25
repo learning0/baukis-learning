@@ -21,6 +21,17 @@ class ConfirmingFormPresenter
     end
   end
 
+  def text_area_block(name, label_text, options = {})
+    markup(:div) do |m|
+      m << decorated_label(name, label_text, options)
+      value = object.send(name)
+      m.div(class: 'field-value') do
+        m << ERB::Util.html_escape(value).gsub(/\n/, '<br />')
+      end
+      m << hidden_field(name, options)
+    end
+  end
+
   def drop_down_list_block(name, label_text, choices, options = {})
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)

@@ -1,8 +1,8 @@
-<% @title = 'アカウントの更新（確認）' %>
+<% @title = 'アカウント情報編集（確認）' %>
 <h1><%= @title %></h1>
 
-<div id="generic-form" class="confirming">
-  <%= form_for @customer_form, as: 'form', url: :customer_account do |f| %>
+<div id="generic-form">
+  <%= form_for @staff_member, url: :staff_account do |f| %>
     <p>以下の内容でアカウントを更新します。よろしいですか？</p>
     <%= render 'confirming_form', f: f %>
     <div class="buttons">
