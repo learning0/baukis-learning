@@ -1,2 +1,0 @@
-class StaffMessage < Message
-end
