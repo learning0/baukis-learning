@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204122808) do
+ActiveRecord::Schema.define(version: 20150216140734) do
 
   create_table "addresses", force: true do |t|
     t.integer  "customer_id",                null: false

@@ -5,15 +5,15 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/baukis/.bundle
+/baukis-learning/.bundle
 
 # Ignore the default SQLite database.
-/baukis/db/*.sqlite3
-/baukis/db/*.sqlite3-journal
+/baukis-learning/db/*.sqlite3
+/baukis-learning/db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/baukis/log/*.log
-/baukis/tmp
+/baukis-learninglog/*.log
+/baukis-learning/tmp
 
 # Ignore baukis answers.
 /baukis-answers
