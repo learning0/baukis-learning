@@ -2,6 +2,8 @@
 <h1><%= @title %></h1>
 
 <div class="table-wrapper">
+  <%= render 'links' %>
+  
   <table class="attributes">
     <% if @message.kind_of?(CustomerMessage) %>
       <div class="links">

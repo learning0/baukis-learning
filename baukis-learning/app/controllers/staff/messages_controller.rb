@@ -2,24 +2,32 @@ class Staff::MessagesController < ApplicationController
   before_action :reject_non_xhr, only: [ :count ]
   
   def index
-    @messages = Message.where(deleted: false).page(params[:page])
+    @messages = Message.where(deleted: false)
+    narrow_down
+    @messages = @messages.page(params[:page])
   end
   
   # GET
   def inbound
-    @messages = CustomerMessage.where(deleted: false).page(params[:page])
+    @messages = CustomerMessage.where(deleted: false)
+    narrow_down
+    @messages = @messages.page(params[:page])
     render action: 'index'
   end
   
   # GET
   def outbound
-    @messages = StaffMessage.where(deleted: false).page(params[:page])
+    @messages = StaffMessage.where(deleted: false)
+    narrow_down
+    @messages = @messages.page(params[:page])
     render action: 'index'
   end
   
   # GET
   def deleted
-    @messages = Message.where(deleted: true).page(params[:page])
+    @messages = Message.where(deleted: true)
+    narrow_down
+    @messages = @messages.page(params[:page])
     render action: 'index'
   end
   
@@ -50,5 +58,13 @@ class Staff::MessagesController < ApplicationController
       raise
     end
     render text: 'OK'
+  end
+  
+  private
+  def narrow_down
+    if params[:tag_id]
+      @messages = @messages.joins(:message_tag_links)
+        .where('message_tag_links.tag_id' => params[:tag_id])
+    end    
   end
 end
